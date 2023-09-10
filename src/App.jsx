@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import SheetClassSelector from './components/CharacterSheet/SheetClassSelector';
+import SheetClassSelector from './screens/SheetClassSelector.jsx';
 
 import './App.css'
 

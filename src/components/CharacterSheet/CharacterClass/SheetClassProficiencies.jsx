@@ -32,7 +32,7 @@ const SheetClassProficiencies = ( props ) => {
 
             <div className="select-proficiencies">
                 {proficiencies.from.options.map((proficiencie, index) => {
-                    const proficiencieName = proficiencie.item.index.replace("skill-", "");
+                    const proficiencieName = proficiencie.item && proficiencie.item.index ? (proficiencie.item.index.replace("skill-", "")) : ("");
 
                     return (
                         <div key={index}>

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { searchClass } from "../../api";
-import SheetClassProficiencies from "./SheetClassProficiencies";
+import { searchClass } from "../api.js";
+import SheetClassGeneralInfo from "../components/CharacterSheet/CharacterClass/SheetClassGeneralInfo.jsx";
+import SheetClassProficiencies from "../components/CharacterSheet/CharacterClass/SheetClassProficiencies.jsx";
 
 const SheetClassSelector = () => {
 
     const [classOptions, setClassOptions] = useState([])
     const [charClass, setCharClass] = useState([]);
     const [proficiencies, setProficiencies] = useState([]);
-    let options;
 
     const onChangeHandler = async ( e ) => {
         const getCharClass = await searchClass( e.target.value );
@@ -51,6 +51,12 @@ const SheetClassSelector = () => {
 
             <div className="class-information">
                 <h2>{ charClass.name }</h2>
+
+                {charClass.name ? (
+                    <SheetClassGeneralInfo charClass={charClass} />
+                ) : (
+                    null
+                )}
 
                 {charClass.proficiency_choices && charClass.proficiency_choices.map((proficiencies, index) => {
                     return(
