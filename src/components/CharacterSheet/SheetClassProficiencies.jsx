@@ -2,7 +2,7 @@ import React from "react";
 
 const SheetClassProficiencies = ( props ) => {
 
-    const { proficiencies, name } = props;
+    const { proficiencies, onChangeProficiencies, name } = props;
     const proficienciesLimit = proficiencies.choose;
 
     const onChangeHandler = ( e ) => {
@@ -19,6 +19,8 @@ const SheetClassProficiencies = ( props ) => {
         if ( checkedInputs > proficienciesLimit ) {
             e.target.checked = false;
         }
+
+        onChangeProficiencies();
     }
 
     return (
@@ -35,7 +37,7 @@ const SheetClassProficiencies = ( props ) => {
                     return (
                         <div key={index}>
                             <label key={index+1} name={name} htmlFor={proficiencieName} onChange={ onChangeHandler }>{proficiencieName}</label>
-                            <input key={index+2} name={name} type="checkbox" id={proficiencieName} value={proficiencieName} onChange={ onChangeHandler } />
+                            <input key={index+2} name={name} type="checkbox" id={proficiencieName} value={proficiencieName} onChange={ onChangeHandler } className="proficiencie-input" />
                         </div>
                     )
                 })}

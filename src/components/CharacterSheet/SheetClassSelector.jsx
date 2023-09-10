@@ -13,7 +13,18 @@ const SheetClassSelector = () => {
     }
 
     const onChangeProficiencie = () => {
-        console.log("changed");
+        const proficienciesInputs = document.querySelectorAll(".proficiencie-input");
+        let checkedProficiencies = [];
+
+        for (let index = 0; index < proficienciesInputs.length; index++) {
+            const input = proficienciesInputs[index];
+
+            if ( input.checked ) {
+                checkedProficiencies.push( input.value );
+            }
+        }
+
+        setProficiencies( checkedProficiencies );
     }
 
     return(
@@ -27,12 +38,13 @@ const SheetClassSelector = () => {
 
             <div className="class-information">
                 <h2>{ charClass.name }</h2>
+
                 {charClass.proficiency_choices && charClass.proficiency_choices.map((proficiencies, index) => {
                     return(
                         <SheetClassProficiencies 
                             key={index} 
                             proficiencies={proficiencies} 
-                            setProficiencies={setProficiencies}
+                            onChangeProficiencies={onChangeProficiencie}
                             name={`proficiencie-${index}`}
                         />
                     );
