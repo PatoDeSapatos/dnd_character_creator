@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { searchClass } from "../../api";
 import SheetClassProficiencies from "./SheetClassProficiencies";
 
 const SheetClassSelector = () => {
 
+    const [classOptions, setClassOptions] = useState([])
     const [charClass, setCharClass] = useState([]);
     const [proficiencies, setProficiencies] = useState([]);
+    let options;
 
     const onChangeHandler = async ( e ) => {
         const getCharClass = await searchClass( e.target.value );
@@ -27,13 +29,24 @@ const SheetClassSelector = () => {
         setProficiencies( checkedProficiencies );
     }
 
+    const getClassOptions = async () => {
+        const classes = await searchClass("");
+        setClassOptions( classes.results );
+    }
+
+    useEffect(() => {
+        getClassOptions();
+    }, []);
+
     return(
         <div className="class-selector-container">
             <select name="class-select" onChange={onChangeHandler}>
-                <option value="">Choose Class</option>
-                <option value="bard">Bard</option>
-                <option value="wizard">Wizard</option>
-                <option value="warlock">Warlock</option>
+                <option value="">Select Class</option>
+                {classOptions.map(( className, index ) => {
+                    return(
+                        <option value={className.index} key={index}> {className.name} </option>
+                    )
+                })}
             </select>
 
             <div className="class-information">
