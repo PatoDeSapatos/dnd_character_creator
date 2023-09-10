@@ -29,7 +29,12 @@ const SheetClassSelector = () => {
                 <h2>{ charClass.name }</h2>
                 {charClass.proficiency_choices && charClass.proficiency_choices.map((proficiencies, index) => {
                     return(
-                        <SheetClassProficiencies key={index} proficiencies={proficiencies} setProficiencies={setProficiencies} />
+                        <SheetClassProficiencies 
+                            key={index} 
+                            proficiencies={proficiencies} 
+                            setProficiencies={setProficiencies}
+                            name={`proficiencie-${index}`}
+                        />
                     );
                 })}
             </div>

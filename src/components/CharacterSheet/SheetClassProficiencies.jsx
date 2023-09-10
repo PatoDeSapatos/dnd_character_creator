@@ -2,11 +2,10 @@ import React from "react";
 
 const SheetClassProficiencies = ( props ) => {
 
-    const { proficiencies, setProficiencies } = props;
+    const { proficiencies, name } = props;
     const proficienciesLimit = proficiencies.choose;
 
     const onChangeHandler = ( e ) => {
-
         const inputGroup = e.target.name;
         const inputs = document.querySelectorAll( `input[name='${inputGroup}']` );
         let checkedInputs = 0;
@@ -31,10 +30,12 @@ const SheetClassProficiencies = ( props ) => {
 
             <div className="select-proficiencies">
                 {proficiencies.from.options.map((proficiencie, index) => {
+                    const proficiencieName = proficiencie.item.index.replace("skill-", "");
+
                     return (
                         <div key={index}>
-                            <label key={index+1} name={proficiencies.desc} htmlFor={proficiencie.item.name} onChange={ onChangeHandler }>{proficiencie.item.name}</label>
-                            <input key={index+2} name={proficiencies.desc} type="checkbox" id={proficiencie.item.name} value={proficiencie.item.name} onChange={ onChangeHandler } />
+                            <label key={index+1} name={name} htmlFor={proficiencieName} onChange={ onChangeHandler }>{proficiencieName}</label>
+                            <input key={index+2} name={name} type="checkbox" id={proficiencieName} value={proficiencieName} onChange={ onChangeHandler } />
                         </div>
                     )
                 })}
