@@ -39,6 +39,60 @@ const SheetClassGeneralInfo = ( props ) => {
                     })}
                 </ul>
             </div>
+
+            <div>
+                <h2>Starting Equipment</h2>
+                <div>
+                    <ul>
+                        {charClass.starting_equipment.map( (equipment, index) => {
+                            return ( <li key={index}> {equipment.equipment.name} </li> );
+                        } )}
+                    </ul>
+                </div>
+
+                <div>
+                    { charClass.starting_equipment_options != undefined && charClass.starting_equipment_options.map( (choose, index) => {
+                        return (
+                            <div>
+                                <div key={index}>{choose.desc}</div>
+                                <div>
+                                    {choose.from.options != undefined && choose.from.options.map( (option, key) => {
+                                        let id;
+
+                                        switch (option.option_type) {
+                                            case "counted_reference":
+                                                id = "starting-equipment-" + key + "-" + option.of.index;
+
+                                                return ( 
+                                                    <div key={key}>
+                                                        <input type="checkbox" name={"starting-equipment-" + key} id={id} />
+                                                        <label htmlFor={id}> {option.of.name} </label>
+                                                    </div> 
+                                                )
+                                        
+                                            case "choice":
+                                                id = "starting-equipment-" + key + "-" + option.choice.from.equipment_category.index;
+
+                                                return(
+                                                    <div key={key}>
+                                                        <input type="checkbox" name={"starting-equipment-" + key} id={id} />
+                                                        <label htmlFor={id}> {option.choice.desc} </label>
+
+                                                        <select name={"starting-equipment-" + key}>
+                                                            {option.choice.from.equipment_category.name}
+                                                        </select>
+                                                    </div>
+                                                    // <select name="weapons" id=""></select>
+                                                );
+                                        }
+                                    })}
+                                </div>
+                            </div>
+                            
+                        )
+                    } )}
+                </div>
+            </div>
         </div>
     )
 }

@@ -12,6 +12,12 @@ const SheetClassSelector = () => {
     const onChangeHandler = async ( e ) => {
         const getCharClass = await searchClass( e.target.value );
         setCharClass( getCharClass );
+        
+        const proficienciesInputs = document.querySelectorAll(".proficiencie-input");
+        proficienciesInputs.forEach(e => {
+            e.checked = false;
+        });
+
     }
 
     const onChangeProficiencie = () => {
