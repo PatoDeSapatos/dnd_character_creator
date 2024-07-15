@@ -44,6 +44,8 @@ const SheetClassSelector = () => {
         getClassOptions();
     }, []);
 
+    
+
     return(
         <div className="class-selector-container">
             <select name="class-select" onChange={onChangeHandler}>

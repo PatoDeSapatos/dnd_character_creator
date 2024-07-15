@@ -5,6 +5,10 @@ const SheetClassGeneralInfo = ( props ) => {
     
     const {charClass} = props;
 
+    const itemChoiceClickHandler = () => {
+
+    }
+
     return(
         <div className="class-general-info-container">
             <div className="hitdie">
@@ -40,7 +44,7 @@ const SheetClassGeneralInfo = ( props ) => {
                 </ul>
             </div>
 
-            <div>
+            <div className="starting-equipment">
                 <h2>Starting Equipment</h2>
                 <div>
                     <ul>
@@ -65,10 +69,43 @@ const SheetClassGeneralInfo = ( props ) => {
 
                                                 return ( 
                                                     <div key={key}>
-                                                        <input type="checkbox" name={"starting-equipment-" + key} id={id} />
+                                                        <input type="checkbox" name={"starting-equipment-" + key} id={id} onClick={itemChoiceClickHandler} />
                                                         <label htmlFor={id}> {option.of.name} </label>
                                                     </div> 
                                                 )
+
+                                            case "multiple":
+                                                let options = [];
+                                                option.items.forEach( (item) => {
+                                                    const isChoice = item.option_type == "choice";
+                                                    const name = isChoice ? (item.choice.desc) : (item.of.name);
+                                                    const choice = isChoice ? (item.choice.desc) : ("")
+                                                    console.log(item);
+
+                                                    options.push( new StartingItemOption(name, choice) );
+                                                })
+
+                                                return (
+                                                    <div key={key}>
+                                                        <input type="checkbox" name="" id="" />
+                                                        <label htmlFor=""> 
+                                                            { options.map( (itemOption) => {
+                                                                const choiceBox = (
+                                                                    <select name="" id="">
+                                                                        <option value="">{itemOption.choice}</option>
+                                                                    </select>
+                                                                );
+
+                                                                return (
+                                                                    <span>
+                                                                        { itemOption.name + "; " }
+                                                                        { itemOption.choice != "" ? (choiceBox) : ("") }
+                                                                    </span>
+                                                                );
+                                                            })} 
+                                                        </label>
+                                                    </div>
+                                                );
                                         
                                             case "choice":
                                                 id = "starting-equipment-" + key + "-" + option.choice.from.equipment_category.index;
@@ -79,10 +116,9 @@ const SheetClassGeneralInfo = ( props ) => {
                                                         <label htmlFor={id}> {option.choice.desc} </label>
 
                                                         <select name={"starting-equipment-" + key}>
-                                                            {option.choice.from.equipment_category.name}
+                                                            <option value="">{option.choice.from.equipment_category.name}</option>
                                                         </select>
                                                     </div>
-                                                    // <select name="weapons" id=""></select>
                                                 );
                                         }
                                     })}
@@ -95,6 +131,13 @@ const SheetClassGeneralInfo = ( props ) => {
             </div>
         </div>
     )
+}
+
+class StartingItemOption {
+    constructor(name, choice) {
+        this.name = name;
+        this.choice = choice;
+    }
 }
 
 export default SheetClassGeneralInfo;
